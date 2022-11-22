@@ -5,8 +5,6 @@ import br.edu.unisinos.instituicaoabc.enums.TipoCursoEnum;
 import br.edu.unisinos.instituicaoabc.enums.TurnoEnum;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Builder
 @Data
 @AllArgsConstructor
@@ -35,7 +33,7 @@ public class MatriculaDto extends BaseDto {
 
     private String email;
 
-    private LocalDate dataNascimento;
+    private String dataNascimento;
 
     private String telefone;
 

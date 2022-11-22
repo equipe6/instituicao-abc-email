@@ -20,6 +20,7 @@
         <jacoco.version>0.8.8</jacoco.version>
         <springdoc.version>1.6.13</springdoc.version>
         <modelmapper.version>3.1.0</modelmapper.version>
+        <jackson-datatype-jsr310.version>2.14.0</jackson-datatype-jsr310.version>
 
         <sonar.projectKey>equipe6_instituicao-abc-email</sonar.projectKey>
         <sonar.organization>equipe6</sonar.organization>
@@ -75,7 +76,11 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson-datatype-jsr310.version}</version>
+        </dependency>
 
         <!--  Hibernate validator -->
         <dependency>
@@ -102,6 +107,11 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>sqs</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>ses</artifactId>
         </dependency>
 
         <!-- Swagger and Swagger UI -->
