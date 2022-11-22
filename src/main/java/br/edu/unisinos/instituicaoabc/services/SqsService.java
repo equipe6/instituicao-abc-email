@@ -27,6 +27,7 @@ public class SqsService implements Serializable {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(QUEUE_URL)
                 .maxNumberOfMessages(1)
+                .waitTimeSeconds(10)
                 .build();
         List<Message> messages = sqsClient.receiveMessage(receiveMessageRequest).messages();
         if (messages == null || messages.isEmpty()) {

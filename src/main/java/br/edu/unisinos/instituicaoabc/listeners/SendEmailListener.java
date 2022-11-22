@@ -32,8 +32,8 @@ public class SendEmailListener implements Serializable {
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
 
-    // Delay inicial de 4seg e intervado de 10seg.
-    @Scheduled(initialDelay = 4000, fixedDelay = 5000)
+    // Delay inicial de 6seg e intervado de 5seg.
+    @Scheduled(initialDelay = 6000, fixedDelay = 5000)
     @Async
     public void listenerMatriculaToSendEmail() throws JsonProcessingException {
         log.info("Run listenerMatriculaToSendEmail - " + Instant.now());
