@@ -33,15 +33,13 @@ public class SendEmailListener implements Serializable {
 
 
     // Delay inicial de 4seg e intervado de 10seg.
-    @Scheduled(initialDelay = 4000, fixedRate = 10000)
+    @Scheduled(initialDelay = 4000, fixedDelay = 5000)
     @Async
     public void listenerMatriculaToSendEmail() throws JsonProcessingException {
-        log.info("Run listenerMatriculaToSendEmail " + Instant.now());
+        log.info("Run listenerMatriculaToSendEmail - " + Instant.now());
         Message message = this.sqsService.receiveMessage();
 
-        if (message == null) {
-            log.info("Nenhuma message");
-        } else {
+        if (message != null) {
             String jsonBody = message.body();
             if (jsonBody != null) {
                 MatriculaDto matricula = this.objectMapper.readValue(jsonBody, MatriculaDto.class);
