@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 
+/**
+ * Classe reponsável pelas configurações para Swagger.
+ * Acesso através: http://localhost:8080/api/swagger-ui/index.html#/
+ */
 @Log4j2
 @Configuration
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -18,6 +22,9 @@ public class SwaggerConfig implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Injeção manual para o Bean OpenAPI.
+     */
     @Bean
     public OpenAPI customOpenAPI(@Value("${info.app.description}") String appDescription, @Value("${info.app.version}") String appVersion) {
         return new OpenAPI()

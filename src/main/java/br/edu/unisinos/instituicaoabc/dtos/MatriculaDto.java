@@ -5,6 +5,9 @@ import br.edu.unisinos.instituicaoabc.enums.TipoCursoEnum;
 import br.edu.unisinos.instituicaoabc.enums.TurnoEnum;
 import lombok.*;
 
+/**
+ * Classe DTO para objeto Matrícula.
+ */
 @Builder
 @Data
 @AllArgsConstructor

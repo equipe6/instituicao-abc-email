@@ -10,6 +10,9 @@ import software.amazon.awssdk.services.ses.model.*;
 
 import java.io.Serializable;
 
+/**
+ * Classe reponsavel pelas regras de negócio para AWS SES.
+ */
 @Log4j2
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -17,46 +20,17 @@ public class SesService implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Injeta SesClient
     private final SesClient sesClient;
 
-    public void sendEmail(String from,
-                          String to,
-                          String subject,
-                          String bodyHtml) {
+    private static final String DEFAULT_EMAIL_FROM = "demo-instituicao-abc@frekele.org";
 
-        Destination destination = Destination.builder()
-                .toAddresses(to)
-                .build();
-
-        Content content = Content.builder()
-                .data(bodyHtml)
-                .build();
-
-        Content sub = Content.builder()
-                .data(subject)
-                .build();
-
-        Body body = Body.builder()
-                .html(content)
-                .build();
-
-        Message msg = Message.builder()
-                .subject(sub)
-                .body(body)
-                .build();
-
-        SendEmailRequest emailRequest = SendEmailRequest.builder()
-                .destination(destination)
-                .message(msg)
-                .source(from)
-                .build();
-
-        SendEmailResponse emailResponse = this.sesClient.sendEmail(emailRequest);
-        log.info("emailResponse: " + emailResponse);
-    }
-
+    /**
+     * Metodo responsável pelo envio do email para o SMTP da AWS SES.
+     * Recebe MatriculaDto e pega dados para setar no template de emai.
+     */
     public void sendEmail(MatriculaDto matricula) {
-        String from = "demo-instituicao-abc@frekele.org";
+        String from = DEFAULT_EMAIL_FROM;
         String to = matricula.getEmail();
         String subject = "Matricula #" + matricula.getId() + " - Curso: " + matricula.getNomeCurso();
 
@@ -76,4 +50,27 @@ public class SesService implements Serializable {
 
         this.sendEmail(from, to, subject, bodyHtml);
     }
+
+    /**
+     * Metodo privado responsável pelo envio do email para o SMTP da AWS SES.
+     */
+    private void sendEmail(String from, String to, String subject, String bodyHtml) {
+
+        Destination destination = Destination.builder().toAddresses(to).build();
+
+        Content content = Content.builder().data(bodyHtml).build();
+
+        Content sub = Content.builder().data(subject).build();
+
+        Body body = Body.builder().html(content).build();
+
+        Message msg = Message.builder().subject(sub).body(body).build();
+
+        SendEmailRequest emailRequest = SendEmailRequest.builder().destination(destination).message(msg).source(from).build();
+
+        //Envia email para AWS SES.
+        SendEmailResponse emailResponse = this.sesClient.sendEmail(emailRequest);
+        log.info("emailResponse: " + emailResponse);
+    }
+
 }

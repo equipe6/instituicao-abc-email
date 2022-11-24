@@ -17,6 +17,9 @@ import software.amazon.awssdk.services.sqs.model.Message;
 import java.io.Serializable;
 import java.time.Instant;
 
+/**
+ * Classe reponsavel pelas regras por ouvir o message Broker AWS SQS.
+ */
 @Log4j2
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
@@ -24,15 +27,19 @@ public class SendEmailListener implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //Injeta SqsService
     private final SqsService sqsService;
 
+    //Injeta SesService
     private final SesService sesService;
 
     private final ObjectMapper objectMapper = new ObjectMapper()
             .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-
-    // Delay inicial de 6seg e intervado de 5seg.
+    /**
+     * Metodo responsavel por processar mensagens encontradas na fila.
+     * Delay inicial de 6seg e intervado de 5seg.
+     */
     @Scheduled(initialDelay = 6000, fixedDelay = 5000)
     @Async
     public void listenerMatriculaToSendEmail() throws JsonProcessingException {

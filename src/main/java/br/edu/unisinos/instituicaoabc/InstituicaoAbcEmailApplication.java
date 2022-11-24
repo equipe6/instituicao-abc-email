@@ -11,6 +11,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsavel por executar o Start da Aplicação Spring Boot.
+ */
 @SpringBootApplication
 @EnableScheduling
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
